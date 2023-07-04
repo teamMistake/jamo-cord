@@ -31,7 +31,7 @@ module.exports = {
 
 
         const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), parseInt(process.env.TIMEOUT));
+        const id = setTimeout(() => controller.abort(), requestedTimeout);
         try {
             const body = await fetch(`${process.env.SUZUME}/generate`, {
                 method: "POST",
