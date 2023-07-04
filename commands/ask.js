@@ -5,17 +5,23 @@ const modelList = models.split(",");
 
 const choices = modelList.map(a => ({name: a, value: a}));
 
-
+const defaultTimeout = parseInt(process.env.TIMEOUT);
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ask')
         .setDescription('Ask jamo anything!!')
         .addStringOption(op => op.setName("question").setDescription("What do you want to ask?").setRequired(true))
-        .addStringOption(op => op.setName("model").setDescription("Which version is smarter?").addChoices(...choices ).setRequired(false)),
+        .addStringOption(op => op.setName("model").setDescription("Which version is smarter?").addChoices(...choices ).setRequired(false))
+        .addIntegerOption(op => op.setName("timeout").setDescription("How much would you wait for a response?").setRequired(false).setMinValue(5)),
     async execute( /** @type {ChatInputCommandInteraction}*/ interaction) {
 		const question = interaction.options.getString('question') ?? 'No Question!';
         const model = interaction.options.getString("model") ?? modelList[0];
+        let requestedTimeout = interaction.options.getInteger("timeout") * 1000;
+        if (requestedTimeout < defaultTimeout) {
+            requestedTimeout = defaultTimeout;
+        }
+        
         if (!modelList.includes(model)) {
             await interaction.reply(`${model} 은 적절한 모델이 아닙니다. 적잘한 모델은 다음과 같습니다: ${modelList.map(a => `\`${a}\``).join(", ")}`)
             return;
