@@ -1,4 +1,4 @@
-FROM node:latest
+FROM --platform=linux/amd64 node:latest
 # Create the directory!
 RUN mkdir -p /usr/src/bot
 WORKDIR /usr/src/bot
