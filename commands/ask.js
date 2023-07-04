@@ -30,7 +30,11 @@ module.exports = {
             });
             clearTimeout(id);
             const json = await body.json();
-            await interaction.editReply(`ID: \`${json.req_id}\`\n모델: \`${json.model}\`\n응답: ${json.resp}`)
+            if (json.error)  {
+                await interaction.editReply(`스즈메 백엔드에서 오류가 발생하였습니다: \nID: \`${json.req_id}\`\n에러: \`${json.error}\``)
+            } else {
+                await interaction.editReply(`ID: \`${json.req_id}\`\n모델: \`${json.model}\`\n응답: ${json.resp}`)
+            }
         } catch (e) {
             clearTimeout(id);
             console.error(e);
