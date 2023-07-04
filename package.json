@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tag": "docker build . -t ghcr.io/teammistake/scritter && docker push ghcr.io/teammistake/scritter"
   },
   "author": "",
   "license": "ISC",
