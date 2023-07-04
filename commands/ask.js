@@ -12,7 +12,7 @@ module.exports = {
         .setName('ask')
         .setDescription('Ask jamo anything!!')
         .addStringOption(op => op.setName("question").setDescription("What do you want to ask?").setRequired(true))
-        .addStringOption(op => op.setName("model").setDescription("Which version is smarter?").addChoices(choices ).setRequired(false)),
+        .addStringOption(op => op.setName("model").setDescription("Which version is smarter?").addChoices(...choices ).setRequired(false)),
     async execute( /** @type {ChatInputCommandInteraction}*/ interaction) {
 		const question = interaction.options.getString('question') ?? 'No Question!';
         const model = interaction.options.getString("model") ?? modelList[0];
