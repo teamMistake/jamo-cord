@@ -37,13 +37,14 @@ module.exports = {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "User-ID": `Discord-${interaction.user.id}`
                 },
                 body: JSON.stringify({
                     req: question,
-                    context: "",
+                    context: [],
                     stream: false,
-                    maxToken: 256,
+                    max_token: 256,
                     model: model
                 }),
                 signal: controller.signal
